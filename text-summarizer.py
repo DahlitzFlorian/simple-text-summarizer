@@ -2,6 +2,8 @@ import argparse
 
 from collections import defaultdict
 
+from heapq import nlargest
+
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.probability import FreqDist
@@ -24,6 +26,8 @@ def main():
     content = sanitize_input(data)
     sentence_tokens, word_tokens = tokenize_content(content)
     sentence_ranks = score_tokens(word_tokens, sentence_tokens)
+
+    return summarize(sentence_ranks, sentence_tokens, args.length)
 
 
 def parse_arguments():
@@ -67,3 +71,18 @@ def score_tokens(filterd_words, sentence_tokens):
                 ranking[i] += word_freq[word]
 
     return ranking
+
+
+def summarize(ranks, sentences, length):
+    if int(length) > len(sentences):
+        print("Error, more sentences requested than available. Use --l (--length) flag to adjust.")
+        exit()
+
+    indices = nlargest(length, ranks, key=ranks.get)
+    final_sentences = [sentences[j] for j in sorted(indices)]
+
+    return " ".join(final_sentences)
+
+
+if __name__ == "__main__":
+    print(main())
