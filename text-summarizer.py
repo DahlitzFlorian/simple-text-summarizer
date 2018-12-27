@@ -1,7 +1,10 @@
 import argparse
 
-from nltk.tokenize import sent_tokenize, word_tokenize
+from collections import defaultdict
+
 from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.probability import FreqDist
 
 from string import punctuation
 
@@ -20,6 +23,7 @@ def main():
 
     content = sanitize_input(data)
     sentence_tokens, word_tokens = tokenize_content(content)
+    sentence_ranks = score_tokens(word_tokens, sentence_tokens)
 
 
 def parse_arguments():
@@ -50,3 +54,16 @@ def tokenize_content(content):
         sent_tokenize(content),
         [word for word in words if word not in stop_words]
     ]
+
+
+def score_tokens(filterd_words, sentence_tokens):
+    word_freq = FreqDist(filterd_words)
+
+    ranking = defaultdict(int)
+
+    for i, sentence in enumerate(sentence_tokens):
+        for word in word_tokenize(sentence.lower()):
+            if word in word_freq:
+                ranking[i] += word_freq[word]
+
+    return ranking
