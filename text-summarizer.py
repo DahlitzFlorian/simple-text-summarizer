@@ -1,8 +1,14 @@
 import argparse
 
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+
+from string import punctuation
+
 
 def main():
     args = parse_arguments()
+    data = ""
 
     try:
         with open(args.filepath, "r") as file:
@@ -13,6 +19,7 @@ def main():
         exit()
 
     content = sanitize_input(data)
+    sentence_tokens, word_tokens = tokenize_content(content)
 
 
 def parse_arguments():
@@ -34,3 +41,12 @@ def sanitize_input(data):
 
     return data.translate(replace)
 
+
+def tokenize_content(content):
+    stop_words = set(stopwords.words('english') + list(punctuation))
+    words = word_tokenize(content.lower())
+
+    return [
+        sent_tokenize(content),
+        [word for word in words if word not in stop_words]
+    ]
