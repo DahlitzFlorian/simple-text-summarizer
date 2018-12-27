@@ -20,7 +20,9 @@ def main():
             data = file.read()
 
     except IOError:
-        print(f"Fatal Error: File ({args.filepath}) could not be located or is not readable.")
+        print(
+            f"Fatal Error: File ({args.filepath}) could not be located or is not readable."
+        )
         exit()
 
     content = sanitize_input(data)
@@ -32,32 +34,26 @@ def main():
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('filepath', help='File name of text to summarize')
-    parser.add_argument('-l', '--length', default=4, help='Number of sentences to return')
+    parser.add_argument("filepath", help="File name of text to summarize")
+    parser.add_argument(
+        "-l", "--length", default=4, help="Number of sentences to return"
+    )
     args = parser.parse_args()
 
     return args
 
 
 def sanitize_input(data):
-    replace = {
-        ord('\f'): ' ',
-        ord('\t'): ' ',
-        ord('\n'): ' ',
-        ord('\r'): None
-    }
+    replace = {ord("\f"): " ", ord("\t"): " ", ord("\n"): " ", ord("\r"): None}
 
     return data.translate(replace)
 
 
 def tokenize_content(content):
-    stop_words = set(stopwords.words('english') + list(punctuation))
+    stop_words = set(stopwords.words("english") + list(punctuation))
     words = word_tokenize(content.lower())
 
-    return [
-        sent_tokenize(content),
-        [word for word in words if word not in stop_words]
-    ]
+    return [sent_tokenize(content), [word for word in words if word not in stop_words]]
 
 
 def score_tokens(filterd_words, sentence_tokens):
@@ -75,7 +71,9 @@ def score_tokens(filterd_words, sentence_tokens):
 
 def summarize(ranks, sentences, length):
     if int(length) > len(sentences):
-        print("Error, more sentences requested than available. Use --l (--length) flag to adjust.")
+        print(
+            "Error, more sentences requested than available. Use --l (--length) flag to adjust."
+        )
         exit()
 
     indices = nlargest(length, ranks, key=ranks.get)
