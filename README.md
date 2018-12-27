@@ -13,3 +13,9 @@ Make sure to further install _punkt_ via the REPL:
 >>> import nltk
 >>> nltk.download("punkt")
 ```
+
+If you run into an SSL Error, make sure to install your certificates using the following command:
+```bash
+/Applications/Python 3.6/Install Certificates.command
+```
+where 2.6 has to be replaced by your used version of Python 3. [Further information](https://stackoverflow.com/a/42890688/6707020).
