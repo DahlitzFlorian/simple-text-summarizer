@@ -4,14 +4,15 @@ This repository contains a simple text summarizer written in Python.
 It's inspired by a [Medium article](https://towardsdatascience.com/write-a-simple-summarizer-in-python-e9ca6138a08e)
 from Jody LeCompte.
 
-version 0.1dev
+version 1.0
 
 ## Third-Party Libraries ##
 - [nltk](https://github.com/nltk/nltk/)<br>
-Make sure to further install _punkt_ via the REPL:
+Make sure to further install _punkt_ and _stopwords_ via the REPL:
 ```python
 >>> import nltk
 >>> nltk.download("punkt")
+>>> nltk.download("stopwords")
 ```
 
 If you run into an SSL Error, make sure to install your certificates using the following command:
