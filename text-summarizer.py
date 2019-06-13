@@ -53,7 +53,7 @@ def tokenize_content(content):
     stop_words = set(stopwords.words("english") + list(punctuation))
     words = word_tokenize(content.lower())
 
-    return [sent_tokenize(content), [word for word in words if word not in stop_words]]
+    return (sent_tokenize(content), [word for word in words if word not in stop_words])
 
 
 def score_tokens(filterd_words, sentence_tokens):
