@@ -29,6 +29,7 @@ $RECYCLE.BIN/
 
 # User-specific stuff
 .idea/
+.vscode/
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
