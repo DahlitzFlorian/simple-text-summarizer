@@ -29,7 +29,7 @@ def main():
     sentence_tokens, word_tokens = tokenize_content(content)
     sentence_ranks = score_tokens(word_tokens, sentence_tokens)
 
-    return summarize(sentence_ranks, sentence_tokens, args.length)
+    return summarize(sentence_ranks, sentence_tokens, int(args.length))
 
 
 def parse_arguments():
