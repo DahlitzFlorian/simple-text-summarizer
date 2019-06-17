@@ -70,7 +70,7 @@ def score_tokens(filterd_words, sentence_tokens):
 
 
 def summarize(ranks, sentences, length):
-    if int(length) > len(sentences):
+    if length > len(sentences):
         print(
             "Error, more sentences requested than available. Use --l (--length) flag to adjust."
         )
